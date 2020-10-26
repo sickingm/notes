@@ -1,0 +1,40 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Notes -- </title>
+<link rel="stylesheet" type="text/css" href="styles/notes.css">
+
+<base target="main">
+</head>
+
+<body>
+<h2 style="margin-top: 0; margin-bottom: 0">crontab 
+<span style="font-weight: 400; font-size:10pt;">(see <a href="http://www.adminschoice.com/docs/crontab.htm">this site</a>)for further details)</span></h2>
+<hr>
+<p><font face="Times New Roman" size="3"><b>Crontab</b> <b>syntax :-</b><br>
+A crontab file has five fields for specifying day , date and time&nbsp; followed by 
+the command to be run at that interval.</font></p>
+<table style="border-collapse: collapse" id="table1" bgcolor="#dbdbdb" border="0" bordercolor="#dbdbdb" cellpadding="0" cellspacing="7" width="79%">
+	<tr>
+		<td width="100%"><font face="Times New Roman" size="3">*&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp; *&nbsp;&nbsp; 
+		*&nbsp;&nbsp;&nbsp; *&nbsp; command to be executed<br>
+		-&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp; -<br>
+		|&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; |<br>
+		|&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; +----- day of week (0 - 6) (Sunday=0)<br>
+		|&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; +------- month (1 - 12)<br>
+		|&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; +--------- day of month (1 - 31)<br>
+		|&nbsp;&nbsp;&nbsp;&nbsp; +----------- hour (0 - 23)<br>
+		+------------- min (0 - 59)<br>
+		&nbsp;</font></td>
+	</tr>
+</table>
+<p><font face="Times New Roman" size="3">* in the value field above means all 
+legal values as in braces for that column. <br>
+The value column can have a * or a list of elements separated by commas. An 
+element is either a number in the ranges shown above or two numbers in the range 
+separated by a hyphen (meaning an inclusive range). <br>
+<br>
+<b>Note</b>: The specification of days can be made in two fields: month day and 
+weekday. If both are specified in an entry, they are cumulative meaning both of 
+the entries will get executed .</font></p>

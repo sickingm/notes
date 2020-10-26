@@ -1,0 +1,41 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Notes -- </title>
+<link rel="stylesheet" type="text/css" href="styles/notes.css">
+
+<base target="main">
+</head>
+
+<body>
+<h2>Javascript - Forcing a form submit</h2></p><hr>
+<p>Sometimes it's desirable to force a form to be submitted without bothering 
+the user to click on the Submit button.&nbsp; In the example below the form 
+contains &lt;select&gt; group with several &lt;options&gt;'s.&nbsp; When any option is 
+clicked the form is submitted.&nbsp; <blockquote>
+
+	<p style="margin-top: 0; margin-bottom: 0">code:
+	<pre id="line26">&lt;<span class="start-tag">form</span><span class="attribute-name"> name</span>=<span class="attribute-value">'get_date_form' </span><span class="attribute-name">method</span>=<span class="attribute-value">'GET' </span><span class="attribute-name">action</span>=<span class="attribute-value">'calendar.php'</span>&gt;</pre>
+	<pre>	&lt;<span class="start-tag">select</span><span class="attribute-name"> name</span>=<span class="attribute-value">'game_date' </span><span class="attribute-name">size</span>=<span class="attribute-value">'1' </span><span class="attribute-name">onChange</span>=<span class="attribute-value">'document.get_date_form.submit();'</span>&gt;</pre>
+	<pre>		&lt;<span class="start-tag">option</span><span class="attribute-name">  </span>&gt;-- Select Game Date --&lt;/<span class="end-tag">option</span>&gt;
+		&lt;<span class="start-tag">option</span><span class="attribute-name">  </span>&gt;July 5, 2007&lt;/<span class="end-tag">option</span>&gt;
+		&lt;<span class="start-tag">option</span><span class="attribute-name">  </span>&gt;July 12, 2007&lt;/<span class="end-tag">option</span>&gt;
+		&lt;<span class="start-tag">option</span><span class="attribute-name">  </span>&gt;July 19, 2007&lt;/<span class="end-tag">option</span>&gt;
+		&lt;<span class="start-tag">option</span><span class="attribute-name">  </span>&gt;July 26, 2007&lt;/<span class="end-tag">option</span>&gt;
+	&lt;/<span class="end-tag">select</span>&gt;</pre>
+	<pre>&lt;/form&gt;</pre>
+	<p>The important point to notice is that in order to do this the form must 
+	be named - in this case it's called &quot;get_date_form&quot;.&nbsp;&nbsp; When the 
+	selection is changed, the onChange event is triggered causing the javascript 
+	applet to be executed, which, in turn, does a form submit.</p>
+	<p>The one thing you need to plan for is what if the item currently selected 
+	is the one you want to process.&nbsp; There are two ways around this.&nbsp; 
+	One trick is to make a top level option be the default (in this case the one 
+	that reads &quot;--Select Game Date--&quot;).&nbsp; Then the selection will always 
+	change when any real option is picked.</p>
+	<p>The other method, the one used in the bUGS attendance page, is to assume 
+	that the first item in the list is the one most likely to be selected and go 
+	ahead and display that page.&nbsp; The only if a different date is required 
+	wil the user have to do anything.</p>
+</blockquote>

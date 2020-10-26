@@ -1,0 +1,42 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Notes -- Special Charactes</title>
+<link rel="stylesheet" type="text/css" href="styles/notes.css">
+
+<base target="main">
+</head>
+<body>
+<h2>Special Characters - MySQL considerations</h2></p><hr>
+<p><u>Inputting special characters into MYSQL database.</u><blockquote>
+	<p>When saving input data into the data base make sure that slashes are added to
+any special characters, like quotes, that would cause problems in the query.
+There is the issue of whether magic_quotes are set, so must test for them first.
+
+Use the "slash_it" function in <a href="../../common/utility_functions.php">common/utility_functions</a> to take care of both
+the slashes and the magic_quotes issue.
+
+	<p style="margin-top: 0; margin-bottom: 0">This function works as follows:<blockquote>
+		<p style="margin-top: 0; margin-bottom: 0"><code>function slash_it($instr)</code><p style="margin-top: 0; margin-bottom: 0">
+		<code><br>
+		/*
+  		 <br>
+		Converts input string to one with quotes slashed to protect the 
+  		 integrity of the query
+  		 
+  		 must test for magic quotes first.</code><p style="margin-top: 0; margin-bottom: 0">
+		<code>Use this function for any user input text that is to be submitted into 
+  		 a data base record.</code><p style="margin-top: 0; margin-bottom: 0">
+		<code>*/
+</code>
+		<p style="margin-top: 0; margin-bottom: 0"><code>{</code><p style="margin-top: 0; margin-bottom: 0">
+		<code>&nbsp;&nbsp;&nbsp; // If Magic Quotes, no need to do anything</code><p style="margin-top: 0; margin-bottom: 0">
+		<code>&nbsp;&nbsp;&nbsp; if(get_magic_quotes_gpc())return($instr);
+		</code>
+		<p style="margin-top: 0; margin-bottom: 0">&nbsp;<p style="margin-top: 0; margin-bottom: 0">
+		<code>&nbsp;&nbsp;&nbsp; // Otherwise strip the slashes</code><p style="margin-top: 0; margin-bottom: 0">
+		<code>&nbsp;&nbsp;&nbsp; return addslashes($instr);
+</code>
+		<p style="margin-top: 0; margin-bottom: 0"><code>} </code>
+	</blockquote></blockquote>

@@ -1,0 +1,50 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Notes -- Special Charactes</title>
+<link rel="stylesheet" type="text/css" href="styles/notes.css">
+
+<base target="main">
+</head>
+
+<body>
+<h2>Special Characters - Outputting to forms</h2></p><hr>
+<p><u>Outputting data containing special characters such as quotes, slashes, 
+html code, etc..</u><blockquote>
+	<p>When outputting textual data into forms, the author must ensure that any 
+	special characters such as quotes do not interfere with the &lt;input&gt; or &lt;text 
+	area&gt; tags.&nbsp; This is done by calling the
+	<a href="http://us2.php.net/manual/en/function.htmlentities.php">
+	htmlentities</a> or
+	<a href="http://us2.php.net/manual/en/function.htmlspecialchars.php">
+	htmlspecialchars</a> functions.<p>However, there is still the problem with 
+	magic quotes colliding with your data.&nbsp; The best practice is:<br>
+	- Use printf and a format string<br>
+	The format string should be in double quotes with any quotes values inside 
+	it using single quotes. This, however, prevents a \n character from issuing 
+	a linefeed, so it must be explicitly written as a separate line.<p>- Wrap 
+	data with htmlentities.</blockquote>
+	
+	<p>Example:
+	<pre>
+	$fmt = &quot;  &lt;td>&lt;input type='text' name='%s' value='%s' size=%s>&lt;/td>\n&quot;;
+	printf($fmt, $name, htmlentities($value), $size);
+	print "\n";&lt;p>
+	</pre>
+
+<p>
+	Similarly, when printing data which possibly could have quotes in it use the 
+	htmlentities or htmlspecialchars option.</p>
+
+<pre>
+	echo &quot;Value of input field is &quot;.htmlentities($infield);
+</pre>
+<p>Note: htmlentities and htmlspecialchars, by default, convert double quotes to 
+&amp;quot; and leave single quotes alone.&nbsp; This behavior can be modified by 
+using the ENT_QUOTES or ENT_NOQUOTES constants as the second argument of this 
+function.<p>E.g.,<pre>
+	echo htmlentities($infield,ENT_QUOTES);
+</pre>
+<p>will convet both single and double quotes.<p>See PHP documentation <br>Also see 
+<a href="http://www.onlamp.com/pub/a/php/2004/08/26/PHPformhandling.html">http://www.onlamp.com/pub/a/php/2004/08/26/PHPformhandling.html</a>

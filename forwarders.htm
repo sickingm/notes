@@ -1,0 +1,37 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Notes -- </title>
+<link rel="stylesheet" type="text/css" href="styles/notes.css">
+
+<base target="main">
+</head>
+
+<body>
+<h2>Mail Forwarders</h2></p><hr>
+<p><u>How to update the email forwarder list.</u><blockquote>
+	<p>
+The file which cantains the list of email forwarders (also known as aliases) is stored 
+in <code>/etc/valiases/sickingfamily.com</code>.
+This file is not accessible via ftp or fopen within php, but is it accessible through system 
+command (i.e., Linux commands on the server.)  So the process is as follows:
+</p>
+<ol>
+	<li>
+		Delete existing aliases file, in php: <code>system("cp /dev/null /etc/valiases/sickingfamily.com");</code>.<br />
+		This copies the standard Linux null file over the existing aliases file.  This is necessary to ensure 
+		that any obsolete forwarders are removed from the list.
+	</li>
+	<li>
+		Run <code>public_html/cron/forwarders/_cron_forwarders_create.php</code>.  <br />This will generate a
+		file in that directory named <code>forwarders.txt</code> which will be used to replace the aliases file.
+	</li>
+	<li>
+		Copy the newly created forwarders.txt file over the now empty aliases file.  
+		To do this execute the following php system command:<br />
+		<code>system("cp /home3/sickingf/public_html/cron/forwarders/forwarders.txt  /etc/valiases/sickingfamily.com")</code>
+	</li>
+
+</ol>
+</blockquote>

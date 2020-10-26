@@ -1,0 +1,50 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Notes -- </title>
+<link rel="stylesheet" type="text/css" href="styles/notes.css">
+
+<base target="main">
+</head>
+
+<body>
+<h2 style="margin-top: 0; margin-bottom: 0">Javascript events</h2>
+<hr>
+<h3>For a complete reference of the events recognized by JavaScript, see
+<a href="http://www.w3schools.com/jsref/jsref_events.asp">complete Event 
+reference</a>.</h3>
+<hr>
+<h2>onLoad and onUnload</h2>
+<h3>The onload and onUnload events are triggered when the user enters or leaves 
+the page.</h3>
+<hr>
+<h2>onFocus, onBlur and onChange</h2>
+<h3>The onFocus, onBlur and onChange events are often used in combination with 
+validation of form fields.</h3>
+<table class="ex" id="table5" border="1" cellspacing="0" width="100%">
+	<tr>
+		<td>
+		<pre>&lt;input type=&quot;text&quot; size=&quot;30&quot; id=&quot;email&quot; onChange=&quot;checkEmail()&quot;&gt;;</pre>
+		</td>
+	</tr>
+</table>
+<h2>onSubmit</h2>
+<h3>The onSubmit event is used to validate ALL form fields before submitting it.</h3>
+<table class="ex" id="table6" border="1" cellspacing="0" width="100%">
+	<tr>
+		<td>
+		<pre>&lt;form method=&quot;post&quot; action=&quot;xxx.htm&quot; onSubmit=&quot;return checkForm()&quot;&gt;</pre>
+		</td>
+	</tr>
+</table>
+<h2>onMouseOver and onMouseOut</h2>
+<table class="ex" id="table7" border="1" cellspacing="0" width="100%">
+	<tr>
+		<td>
+		<pre>&lt;a href=&quot;<a href="http://www.w3schools.com">http://www.w3schools.com</a>&quot; onmouseover=&quot;alert('An onMouseOver event');return false&quot;&gt;
+&lt;img src=&quot;w3schools.gif&quot; width=&quot;100&quot; height=&quot;30&quot;&gt;
+&lt;/a&gt;</pre>
+		</td>
+	</tr>
+</table>

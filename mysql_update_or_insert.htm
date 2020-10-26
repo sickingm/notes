@@ -1,0 +1,26 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Notes -- </title>
+<link rel="stylesheet" type="text/css" href="styles/notes.css">
+<base target="main">
+</head>
+
+<body>
+<h2>UPDATE or, if no record exists, INSERT </h2></p><hr>
+<p><u>Fetching a set of records from a MYSQL data base in PHP.</u>
+
+
+	<p>This is the general format:
+	<pre class="programlisting">
+	INSERT INTO table (k,x,y) VALUES (1,2,3)
+	ON DUPLICATE KEY UPDATE x=x+1;
+  	</pre>
+<p>Assuming that k is the record key, if all data is to be created or replaced then this becomes:</p>
+	<pre class="programlisting">
+	INSERT INTO table (k,x,y) VALUES (1,2,3)
+	ON DUPLICATE KEY UPDATE x=2, y=3;
+  	</pre>
+<p>&nbsp;</p>
+

@@ -1,0 +1,66 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Notes -- </title>
+<link rel="stylesheet" type="text/css" href="styles/notes.css">
+
+<base target="main">
+</head>
+
+<body>
+<h2 style="margin-top: 0; margin-bottom: 0">Force a page or frame refresh</h2>
+<p style="margin-top: 0; margin-bottom: 0"></p><hr>
+<p style="margin-top: 0; margin-bottom: 0">From <u>
+<a href="http://www.faqts.com/knowledge_base/view.phtml/aid/981/fid/127">
+<span style="text-decoration: none">
+http://www.faqts.com/knowledge_base/view.phtml/aid/981/fid/127
+</span>
+</a></u>
+<p style="margin-top: 0; margin-bottom: 0"><font size="3">The usual objects you script inside a window (e.g. <br>
+<font face="Courier">&nbsp;<font color="#0000FF"> document<br>
+&nbsp; history<br>
+&nbsp; location<br>
+&nbsp; varName<br>
+&nbsp; methodName()</font></font><br>
+are just properties of the window object and the above are just 
+shortcuts for<br>
+&nbsp; <font face="Courier">&nbsp;<font color="#0000FF">window.document<br>
+&nbsp; window.history<br>
+&nbsp; window.location<br>
+&nbsp; window.varName<br>
+&nbsp; window.methodName()</font></font></font></p>
+<p style="margin-top: 0; margin-bottom: 0"><font size="3"><br>
+If you replace <font face="Courier">window</font> with a reference to another window object you can script 
+that as well (subject to cross domain security restrictions). </font></p>
+<p style="margin-top: 0; margin-bottom: 0"><font size="3">To access a 
+frameset window from inside a frame you access the parent object so:<br>
+<font face="Courier" color="#0000FF">
+&nbsp; parent.document<br>
+&nbsp; parent.location</font><br>
+etc. scripts the containing window for a frame.</font></p>
+<p style="margin-top: 0; margin-bottom: 0"><font size="3"><br>
+<font face="Courier"><font color="#0000FF">parent.frameName</font><br>
+</font>is the reference to the &lt;FRAME NAME=&quot;frameName&quot; ...&gt; sibling thus<br>
+<font face="Courier" color="#0000FF">
+&nbsp; parent.frameName.document<br>
+&nbsp; parent.frameName.location<br>
+&nbsp; parent.frameName.varName<br>
+&nbsp; parent.frameName.functionName()</font><br>
+scripts another frame.</font></p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0"><font size="3">To refresh a window use the Javascript function &quot;reload&quot;.&nbsp; Therefore, to refresh the currect window use:</font></p>
+<p style="margin-top: 0; margin-bottom: 0">
+<font size="3" face="Courier" color="#0000FF">	location.reload(true)</font></p>
+<p style="margin-top: 0; margin-bottom: 0"><font size="3">To refresh a sibling frame use 
+<font face="Courier" color="#0000FF">parent.framename.location.reload(true)</font>.</font></p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0"><font size="3">Here is the entire 
+script to reload the frame named &quot;left_frame&quot;.</font></p>
+<blockquote>
+	<pre style="margin-top: 0; margin-bottom: 0"><b><font size="3" color="#0000FF" face="Courier">&lt;script language=&quot;JavaScript1.1&quot;&gt;
+&lt;!--
+parent.left_frame.location.reload(true);
+//--&gt;-&gt;
+&lt;/script&gt;</font></b></pre>
+</blockquote>

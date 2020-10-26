@@ -1,0 +1,27 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Notes -- </title>
+<link rel="stylesheet" type="text/css" href="styles/notes.css">
+
+<base target="main"> 
+</head>
+
+<body>
+<h2>MYSQL Record Fetch </h2></p><hr>
+<p><u>Fetching a set of records from a MYSQL data base in PHP.</u>
+
+
+	<p>Using the utility functions this is the basic skeleton to open, query, 
+	fetch and process a set of records:
+	<pre>	
+	connect_and_select(&quot;&quot;,&quot;sickingf&quot;,&quot;Ollie&quot;,&quot;sickingf_family&quot;);
+	$query = &quot;SELECT email FROM emails&quot;;
+	$result = mysql_query($query) or die(mysql_error());
+	while ($row = mysql_fetch_array($result, MYSQL_ASSOC))
+	{
+		//loop through row of data<br>
+	}
+	
+	</pre>

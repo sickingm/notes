@@ -1,0 +1,27 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Notes -- </title>
+<link rel="stylesheet" type="text/css" href="styles/notes.css">
+
+<base target="main">
+</head>
+
+<body>
+<h2>Document Root</h2></p><hr>
+<p><b>Problem</b>: How to access an absolute location (e.g., the styles folder) from any folder/subfolder in the site.&nbsp; This allows for more portability of 
+code.<p><b>Solution</b>: Define a string variable containing the uri of the document root.&nbsp; In PHP this is stored in the Global supervariable $_SERVER[&quot;SERVER_NAME&quot;].&nbsp; 
+Note that it does not end with a final backslash, so any additional folders to be added must 
+start with one.&nbsp; See example below.<p>&nbsp;<p style="margin-top: 0; margin-bottom: 0">code:
+	<blockquote>
+		<pre>$root = &quot;http://&quot;.$_SERVER[&quot;SERVER_NAME]&quot;];</pre>
+		<pre>echo &quot;&lt;link rel='stylesheet' href='$root/bugs/styles/_home.css' type='text/css'&gt;&quot;;</pre>
+</blockquote>
+<p>E.g., in the case of the bugs website this will be equal to &quot;http://www.sickingfamily.com&quot;, but while developing it locally it will be equal to 
+&quot;http://localhost&quot; <br>
+Note that the prefix &quot;http://&quot; is also added to the server name.&nbsp; This is needed in some cases (notably for script and style links) to make the 
+reference unambiguous.</p>
+<p>References such as style links and script links require a uri, not a file spec, which is why we don't use $_SERVER[&quot;DOCUMENT_ROOT&quot;].&nbsp; $_SERVER[&quot;DOCUMENT_ROOT&quot;] 
+returns the file system pathname of the root (E.g., &quot;D:/htdocs/sickingfamily&quot;, 
+rather than &quot;localhost/sickingfamily&quot;.</p>

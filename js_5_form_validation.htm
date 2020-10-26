@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+<title>Javascript Tutorial - Form</title>
+<link rel="stylesheet" type="text/css" href="styles/notes.css">
+</head>
+
+<table cellpadding="3">
+	<tr>
+		<td class="mainIn">
+		<h2 style="margin-top: 0; margin-bottom: 0">Javascript Form Validation</h2>
+		<hr>
+		<p>There&#39;s nothing more troublesome than receiving orders, guestbook entries, or other form submitted data that 
+		are incomplete in some way. You can avoid these headaches once and for all with Javascript&#39;s amazing way to combat 
+		bad form data with a technique called &quot;form validation&quot;.</p>
+		<p>The idea behind Javascript form validation is to provide a method to check the user entered information before 
+		they can even submit it. Javascript also lets you display helpful alerts to inform the user what information they 
+		have entered incorrectly and how they can fix it. In this lesson we will be reviewing some basic form validation, 
+		showing you how to check for the following:</p>
+		<ul>
+			<li>If a text input is empty or not</li>
+			<li>If a text input is all numbers</li>
+			<li>If a text input is all letters</li>
+			<li>If a text input is all alphanumeric characters (numbers &amp; letters)</li>
+			<li>If a text input has the correct number of characters in it (useful when restricting the length of a username 
+			and/or password)</li>
+			<li>If a selection has been made from an HTML select input (the drop down selector)</li>
+			<li>If an email address is valid</li>
+			<li>How to check all above when the user has completed filling out the form</li>
+		</ul>
+		<p>This lesson is a little long, but knowing how to implement these form validation techniques is definitely worth 
+		the effort on your part. Remember to check out Tizag&#39;s <a href="http://www.tizag.com/htmlT/forms.php">HTML forms</a> 
+		lesson if you need to brush up on your form knowledge.</p>
+		<h1>Form Validation - Checking for Non-Empty</h1>
+		<p>This has to be the most common type of form validation. You want to be sure that your visitors enter data into 
+		the HTML fields you have &quot;required&quot; for a valid submission. Below is the Javascript code to perform this basic check 
+		to see if a given HTML input is empty or not. </p>
+		<div class="codewrap">
+			<h2 class="specialT">Javascript Code:</h2>
+			<pre class="code">
+
+// If the length of the element&#39;s string is 0 then display helper message
+function isEmpty(elem, helperMsg){
+	<font color="red">if(elem.value.length == 0)</font>{
+		alert(helperMsg);
+		elem.focus(); // set the focus to this input
+		return true;
+	}
+	return false;
+}
+</pre>
+		</div>
+		<p>The function <i>isEmpty</i> will check to see that the HTML input that we send it has something in it. <i>elem</i> 
+		is a HTML text input that we send this function. Javascriptstrings have built in properties, one of which is the
+		<i>length</i> property which returns the length of the string. The chunk of code <i>elem.value</i> will grab the 
+		string inside the input and by adding on length <i>elem.value.length</i> we can see how long the string is.</p>
+		<p>As long as <i>elem.value.length</i> isn&#39;t 0 then it&#39;s not empty and we return true, otherwise we send an alert 
+		to the user with a <i>helperMsg</i> to inform them of their error and return false.</p>
+		<div class="codewrap">
+			<h2 class="specialT">Working Example:</h2>
+			<pre class="code">
+&lt;script type=&#39;text/javascript&#39;&gt;
+function isEmpty(elem, helperMsg){
+	if(elem.value.length == 0){
+		alert(helperMsg);
+		elem.focus();
+		return true;
+	}
+	return false;
+}
+&lt;/script&gt;
+
+&lt;form&gt;
+Required Field: &lt;input type=&#39;text&#39; id=&#39;req1&#39;/&gt;
+&lt;input type=&#39;button&#39; 
+	onclick=&quot;<font color="red">isEmpty(document.getElementById(&#39;req1&#39;), &#39;Please Enter a Value&#39;)</font>&quot;
+	value=&#39;Check Field&#39; /&gt;
+&lt;/form&gt;
+</pre>
+		</div>
+		<h2 class="specialT">Display:</h2>
+		<div class="display">
+			<script type="text/javascript">
+function isEmpty1(elem, helperMsg){
+	if(elem.value.length == 0){
+		alert(helperMsg);
+		elem.focus();
+		return false;
+	}
+	return true;
+}
+</script>
+			<form>
+				Required Field: <input type="text" id="req1" />
+				<input type="button" onclick="isEmpty1(document.getElementById('req1'), 'Please Enter a Value')" value="Check Field" />
+			</form>
+		</div>
+		<h1>Validating a Form - All at Once</h1>
+		<p>If you&#39;ve made it this far I commend you, but we&#39;re not done yet! The final step is to be able to perform all 
+		of these validation steps when the user is ready to submit their data.</p>
+		<p>Each form has a Javascript event called <i>onSubmit</i> that is triggered when its <i>submit</i> button is clicked. 
+		If this even returns 0 or false then a form cannot be submitted, and if it returns 1 or true it will always be submitted. 
+		Wouldn&#39;t it be perfect if we could somehow make an if statement that said &quot;If the form is valid submit it (1) else 
+		don&#39;t submit it (0)&quot;? Well with a master <i>formValidator</i> function we can do just that.</p>
+		<p><i>formValidator</i> will be somewhat like a list of checks that we want to do before a form is submitted. But 
+		before we can decide what we want to check for, we need to have our form!</p>
+		<div class="codewrap">
+			<h2 class="specialT">HTML Form Code:</h2>
+			<pre class="code">
+&lt;form onsubmit=&#39;return formValidator()&#39; &gt;
+First Name: &lt;input type=&#39;text&#39; id=&#39;firstname&#39; /&gt;&lt;br /&gt;
+Address: &lt;input type=&#39;text&#39; id=&#39;addr&#39; /&gt;&lt;br /&gt;
+
+Zip Code: &lt;input type=&#39;text&#39; id=&#39;zip&#39; /&gt;&lt;br /&gt;
+State: &lt;select id=&#39;state&#39;&gt;
+	&lt;option&gt;Please Choose&lt;/option&gt;
+	&lt;option&gt;AL&lt;/option&gt;
+
+	&lt;option&gt;CA&lt;/option&gt;
+	&lt;option&gt;TX&lt;/option&gt;
+	&lt;option&gt;WI&lt;/option&gt;
+&lt;/select&gt;&lt;br /&gt;
+
+Username(6-8 characters): &lt;input type=&#39;text&#39; id=&#39;username&#39; /&gt;&lt;br /&gt;
+Email: &lt;input type=&#39;text&#39; id=&#39;email&#39; /&gt;&lt;br /&gt;
+&lt;input type=&#39;submit&#39; value=&#39;Check Form&#39; /&gt;&lt;br /&gt;
+&lt;/form&gt;
+</pre>
+		</div>
+		<p>That&#39;s a lot of data to verify and the first thing we would probably want to check is that each field was at 
+		least filled out. To check for completion we will ensure no fields are empty and that the <i>SELECT</i> field has 
+		a selection. Here are the starting pieces of our master validation function <i>formValidator</i>.</p>
+		<div class="codewrap">
+			<h2 class="specialT">Javascript Code:</h2>
+			<pre class="code">
+function formValidator(){
+	// Make quick references to our fields
+	var firstname = document.getElementById(&#39;firstname&#39;);
+	var addr = document.getElementById(&#39;addr&#39;);
+	var zip = document.getElementById(&#39;zip&#39;);
+	var state = document.getElementById(&#39;state&#39;);
+	var username = document.getElementById(&#39;username&#39;);
+	var email = document.getElementById(&#39;email&#39;);
+	
+	// Check each input in the order that it appears in the form!
+	if(isAlphabet(firstname, &quot;Please enter only letters for your name&quot;)){
+		if(isAlphanumeric(addr, &quot;Numbers and Letters Only for Address&quot;)){
+			if(isNumeric(zip, &quot;Please enter a valid zip code&quot;)){
+				if(madeSelection(state, &quot;Please Choose a State&quot;)){
+					if(lengthRestriction(username, 6, 8)){
+						if(emailValidator(email, &quot;Please enter a valid email address&quot;)){
+							return true;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
+	return false;
+	
+}
+</pre>
+		</div>
+		<p>The first part of this function is where we create easy references to our HTML inputs using the <i>getElementById</i> 
+		function. These quick references will make our next block of code much easier to read!</p>
+		<p>The second part uses a bunch of embedded if statements to see whether or not each field has the correct type 
+		of data. If every single one of those fields we check validates, then we&#39;ll return true and the form will be submitted 
+		successfully. </p>
+		<p>However, if just one of those if statements fails then the <i>return false</i> at the end of the function is 
+		reached and prevents the form for being submitted.</p>
+		<p>As you can see this function really does do quite a lot, definitely earning the title of <i>formValidator</i>. 
+		Notice how this one function references all of the functions we have covered in this lesson. By placing all of these 
+		checks in a central location you make your code easier to read and easier to change around in the future.</p>
+		<p>Now let&#39;s put all the necessary and HTML together and try it out!</p>
+		<h1>All Together Now</h1>
+		<p>Below we have taken the HTML form code and the new function <i>formValidator</i> and plugged in all the other 
+		form validation functions taught in this lesson that are referenced in <i>formValidator</i>.</p>
+		<div class="codewrap">
+			<h2 class="specialT">HTML &amp; Javascript Code:</h2>
+			<pre class="code">
+&lt;script type=&#39;text/javascript&#39;&gt;
+
+function formValidator(){
+	// Make quick references to our fields
+	var firstname = document.getElementById(&#39;firstname&#39;);
+	var addr = document.getElementById(&#39;addr&#39;);
+	var zip = document.getElementById(&#39;zip&#39;);
+	var state = document.getElementById(&#39;state&#39;);
+	var username = document.getElementById(&#39;username&#39;);
+	var email = document.getElementById(&#39;email&#39;);
+	
+	// Check each input in the order that it appears in the form!
+	if(isAlphabet(firstname, &quot;Please enter only letters for your name&quot;)){
+		if(isAlphanumeric(addr, &quot;Numbers and Letters Only for Address&quot;)){
+			if(isNumeric(zip, &quot;Please enter a valid zip code&quot;)){
+				if(madeSelection(state, &quot;Please Choose a State&quot;)){
+					if(lengthRestriction(username, 6, 8)){
+						if(emailValidator(email, &quot;Please enter a valid email address&quot;)){
+							return true;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
+	return false;
+	
+}
+
+function isEmpty(elem, helperMsg){
+	if(elem.value.length == 0){
+		alert(helperMsg);
+		elem.focus(); // set the focus to this input
+		return true;
+	}
+	return false;
+}
+
+function isNumeric(elem, helperMsg){
+	var numericExpression = /^[0-9]+$/;
+	if(elem.value.match(numericExpression)){
+		return true;
+	}else{
+		alert(helperMsg);
+		elem.focus();
+		return false;
+	}
+}
+
+function isAlphabet(elem, helperMsg){
+	var alphaExp = /^[a-zA-Z]+$/;
+	if(elem.value.match(alphaExp)){
+		return true;
+	}else{
+		alert(helperMsg);
+		elem.focus();
+		return false;
+	}
+}
+
+function isAlphanumeric(elem, helperMsg){
+	var alphaExp = /^[0-9a-zA-Z]+$/;
+	if(elem.value.match(alphaExp)){
+		return true;
+	}else{
+		alert(helperMsg);
+		elem.focus();
+		return false;
+	}
+}
+
+function lengthRestriction(elem, min, max){
+	var uInput = elem.value;
+	if(uInput.length &gt;= min &amp;&amp; uInput.length &lt;= max){
+		return true;
+	}else{
+		alert(&quot;Please enter between &quot; +min+ &quot; and &quot; +max+ &quot; characters&quot;);
+		elem.focus();
+		return false;
+	}
+}
+
+function madeSelection(elem, helperMsg){
+	if(elem.value == &quot;Please Choose&quot;){
+		alert(helperMsg);
+		elem.focus();
+		return false;
+	}else{
+		return true;
+	}
+}
+
+function emailValidator(elem, helperMsg){
+	var emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+	if(elem.value.match(emailExp)){
+		return true;
+	}else{
+		alert(helperMsg);
+		elem.focus();
+		return false;
+	}
+}
+&lt;/script&gt;
+
+&lt;form onsubmit=&#39;return formValidator()&#39; &gt;
+
+First Name: &lt;input type=&#39;text&#39; id=&#39;firstname&#39; /&gt;&lt;br /&gt;
+Address: &lt;input type=&#39;text&#39; id=&#39;addr&#39; /&gt;&lt;br /&gt;
+Zip Code: &lt;input type=&#39;text&#39; id=&#39;zip&#39; /&gt;&lt;br /&gt;
+State: &lt;select id=&#39;state&#39;&gt;
+	&lt;option&gt;Please Choose&lt;/option&gt;
+
+	&lt;option&gt;AL&lt;/option&gt;
+	&lt;option&gt;CA&lt;/option&gt;
+	&lt;option&gt;TX&lt;/option&gt;
+	&lt;option&gt;WI&lt;/option&gt;
+
+&lt;/select&gt;&lt;br /&gt;
+Username(6-8 characters): &lt;input type=&#39;text&#39; id=&#39;username&#39; /&gt;&lt;br /&gt;
+Email: &lt;input type=&#39;text&#39; id=&#39;email&#39; /&gt;&lt;br /&gt;
+&lt;input type=&#39;submit&#39; value=&#39;Check Form&#39; /&gt;
+&lt;/form&gt;
+</pre>
+		</div>
+		<h2 class="specialT">Display:</h2>
+		<div class="display">
+			<script type="text/javascript">
+
+function formValidator(){
+	// Make quick references to our fields
+	var firstname = document.getElementById('firstname');
+	var addr = document.getElementById('addr');
+	var zip = document.getElementById('zip');
+	var state = document.getElementById('state');
+	var username = document.getElementById('username');
+	var email = document.getElementById('email');
+	
+	// Check each input in the order that it appears in the form!
+	if(isAlphabet(firstname, "Please enter only letters for your name")){
+		if(isAlphanumeric(addr, "Numbers and Letters Only for Address")){
+			if(isNumeric(zip, "Please enter a valid zip code")){
+				if(madeSelection(state, "Please Choose a State")){
+					if(lengthRestriction(username, 6, 8)){
+						if(emailValidator(email, "Please enter a valid email address")){
+							return true;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
+	return false;
+	
+}
+
+function isEmpty(elem, helperMsg){
+	if(elem.value.length == 0){
+		alert(helperMsg);
+		elem.focus(); // set the focus to this input
+		return true;
+	}
+	return false;
+}
+
+function isNumeric(elem, helperMsg){
+	var numericExpression = /^[0-9]+$/;
+	if(elem.value.match(numericExpression)){
+		return true;
+	}else{
+		alert(helperMsg);
+		elem.focus();
+		return false;
+	}
+}
+
+function isAlphabet(elem, helperMsg){
+	var alphaExp = /^[a-zA-Z]+$/;
+	if(elem.value.match(alphaExp)){
+		return true;
+	}else{
+		alert(helperMsg);
+		elem.focus();
+		return false;
+	}
+}
+
+function isAlphanumeric(elem, helperMsg){
+	var alphaExp = /^[0-9a-zA-Z]+$/;
+	if(elem.value.match(alphaExp)){
+		return true;
+	}else{
+		alert(helperMsg);
+		elem.focus();
+		return false;
+	}
+}
+
+function lengthRestriction(elem, min, max){
+	var uInput = elem.value;
+	if(uInput.length >= min && uInput.length <= max){
+		return true;
+	}else{
+		alert("Please enter between " +min+ " and " +max+ " characters");
+		elem.focus();
+		return false;
+	}
+}
+
+function madeSelection(elem, helperMsg){
+	if(elem.value == "Please Choose"){
+		alert(helperMsg);
+		elem.focus();
+		return false;
+	}else{
+		return true;
+	}
+}
+
+function emailValidator(elem, helperMsg){
+	var emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+	if(elem.value.match(emailExp)){
+		return true;
+	}else{
+		alert(helperMsg);
+		elem.focus();
+		return false;
+	}
+}
+</script>
+			<form onsubmit="return formValidator()">
+				First Name: <input type="text" id="firstname" /><br />
+				Address: <input type="text" id="addr" /><br />
+				Zip Code: <input type="text" id="zip" /><br />
+				State: <select id="state">
+				<option>Please Choose</option>
+				<option>AL</option>
+				<option>CA</option>
+				<option>TX</option>
+				<option>WI</option>
+				</select><br />
+				Username(6-8 characters): <input type="text" id="username" /><br />
+				Email: <input type="text" id="email" /><br />
+				<input type="submit" value="Check Form" />
+			</form>
+		</div>
+		</td>
+	</tr>
+</table>
+
+</body>
+
+</html>

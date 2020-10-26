@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Notes --</title>
+    <link rel="stylesheet" type="text/css" href="styles/notes.css">
+    <base target="main">
+    <style type="text/css">
+        p.c1 {
+            margin-top: 0; 
+            margin-bottom: 0
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Dates in PHP and MySQL</h2>
+    <hr />
+
+    <p><u>storing and retriving dates in MySQL for use in PHP.</u></p>
+
+    <blockquote>
+        <p>One common solution is to store the dates in DATETIME fields and 
+        use PHP's date() and strtotime() functions to convert between PHP 
+        timestamps and MySQL DATETIMEs. For example:</p>
+
+        <pre>
+    $mysqldate = date( 'Y-m-d H:i:s', $phpdate );
+    $phpdate = strtotime( $mysqldate );
+    
+    </pre>
+
+        <p>A second option is to let MySQL do the work. MySQL has functions to convert the data at the point where we access the database. UNIX_TIMESTAMP will convert from DATETIME to PHP timestamp and FROM_UNIXTIME will convert from PHP timestamp to DATETIME. The methods are used within the SQL query. So we insert and update dates using queries like this -.</p>
+        <pre>
+    $query = "UPDATE table SET
+    datetimefield = FROM_UNIXTIME($phpdate)
+    WHERE...";
+    $query = "SELECT UNIX_TIMESTAMP(datetimefield)
+    FROM table WHERE...";);
+    
+</pre>
+    </blockquote>
+</body>
+</html>
